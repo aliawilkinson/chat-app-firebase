@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 
 const Nav = props => {
     const navStyle = {
-        padding: '0 10px'
+        padding: '0 10px',
+        fontFamily: "'Oleo Script Swash Caps', cursive",
+        fontSize: '5vmin'
     }
     return (
         <nav className="teal" style={navStyle}>
