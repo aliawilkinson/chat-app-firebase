@@ -6,6 +6,7 @@ import { updateChat } from '../actions';
 class Chat extends Component {
     componentDidMount() {
         db.ref('/chat-log').on('value', (snapshot) => { //this is all firebase stuff
+            console.log('snapshot', snapshot.val());
             this.props.updateChat(snapshot.val())
         });
     };
@@ -35,7 +36,7 @@ class Chat extends Component {
                 <h1>
                     Chat Room
                 </h1>
-                <form>
+                <form>{chatElements}
                     <div style={displayChat}>
                         <input type="text" placeholder="start typing here..." />
                     </div>
