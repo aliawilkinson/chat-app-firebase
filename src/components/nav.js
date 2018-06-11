@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import '../assets/css/app.css';
 
 const Nav = props => {
     const navStyle = {
@@ -13,10 +14,10 @@ const Nav = props => {
                 <Link to="/">Chatter Box</Link>
                 <ul className="right">
                     <li>
-                        <Link to="/">Home</Link>
+                        <Link to="/"><span className="nav-link">Home</span></Link>
                     </li>
                     <li>
-                        <Link to="/chat">Chat</Link>
+                        <Link to="/chat"><span className="nav-link">Chat</span></Link>
                     </li>
                 </ul>
             </div>
