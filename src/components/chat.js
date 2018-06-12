@@ -6,13 +6,14 @@ import MessageInput from './message_input';
 
 class Chat extends Component {
     componentDidMount() {
-        db.ref('/chat-log').on('value', (snapshot) => { //this is all firebase stuff
+        const { id } = this.props.match.params;
+        db.ref(`/chat-rooms/${id}`).on('value', (snapshot) => { //this is all firebase stuff
             this.props.updateChat(snapshot.val())
         });
     };
 
     render() {
-        const { chatLog } = this.props;
+        const { chatLog, roomName, match: { params } } = this.props;
         const chatElements = Object.keys(chatLog).map((key, index) => {
             const { name, message } = chatLog[key];
             return (<li className="collection-item" key={key}>
@@ -25,11 +26,10 @@ class Chat extends Component {
 
         return (
             <div className="center">
-                <h1>
-                    Chat Room
+                <h1 className="center">{roomName || 'Chat Room'}
                 </h1>
                 <ul>{chatElements}</ul>
-                <MessageInput />
+                <MessageInput roomId={params.id} />
             </div>
         )
     }
@@ -37,7 +37,8 @@ class Chat extends Component {
 
 function mapStateToProps(state) {
     return {
-        chatLog: state.chat.log
+        chatLog: state.chat.log,
+        roomName: state.chat.name
     }
 }
 
