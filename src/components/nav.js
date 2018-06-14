@@ -17,7 +17,7 @@ const Nav = props => {
                         <Link to="/"><span className="nav-link">Home</span></Link>
                     </li>
                     <li>
-                        <Link to="/chat"><span className="nav-link">Chat</span></Link>
+                        <Link to="/chat-rooms"><span className="nav-link">Chat Rooms</span></Link>
                     </li>
                     <li>
                         <Link to="/create-room"><span className="nav-link">Create Room</span></Link>

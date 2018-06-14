@@ -1,12 +1,10 @@
 import types from './types';
 import db from '../firebase';
 
-export function updateChat(roomData) {
-    console.log('room data: ', roomData);
+export function updateChat(chatLog) {
     return {
         type: types.UPDATE_CHAT_LOG,
-        chatLog: roomData['chat-log'],
-        payload: {}
+        chatLog
     }
 }
 
@@ -18,7 +16,7 @@ export function updateInput(name, value) {
 }
 
 export function sendMessageToDatabase(id, message) {
-    db.ref(`/chat-rooms/${id}/chat-log`).push({
+    db.ref(`/chat-logs/${id}`).push({
         name: "Alia",
         message
     });
@@ -31,17 +29,41 @@ export function clearInput(name) {
     }
 }
 
+export function setRoom(name) {
+    return {
+        type: types.SET_ROOM,
+        payload: name
+    }
+}
+
+export function updateRooms(rooms) {
+    return {
+        type: types.UPDATE_ROOMS,
+        payload: rooms
+    }
+}
+
 export async function createRoom(name) {
-    const newRoom = {
-        name,
-        'chat-log': {
-            0: {
-                message: `Welcome to the ${name} chat room`,
-                name: 'Admin'
-            }
+    const firstMessage = {
+        0: {
+            message: `Welcome to room ${name}`,
+            name: `Admin`
         }
     }
+    const newChat = await db.ref('/chat-logs').push(firstMessage);
+
+    const newRoom = {
+        name,
+        chatId: newChat.key
+    }
     const resp = await db.ref('/chat-rooms').push(newRoom);
-    return resp.key;
+
+    return newChat.key;
+}
+
+export function clearChatData() {
+    return {
+        type: types.CLEAR_CHAT_DATA
+    }
 }
 
