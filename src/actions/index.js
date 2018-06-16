@@ -70,9 +70,9 @@ export function updateInput(name, value) {
     }
 }
 
-export function sendMessageToDatabase(id, message) {
+export function sendMessageToDatabase(id, username, message) {
     db.ref(`/chat-logs/${id}`).push({
-        name: "Alia",
+        name: username,
         message
     });
 }
